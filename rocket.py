@@ -29,3 +29,6 @@ class RocketBoard:
 
     def __getitem__(self, key):
         return self.rockets[key]
+
+    def __setitem__(self, key, value):
+        self.rockets[key].altitude = value
