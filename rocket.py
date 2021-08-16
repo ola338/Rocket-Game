@@ -1,9 +1,6 @@
 import random
 
 class Rocket:
-    """
-    """
-
     def __init__(self, number, speed):
         self.altitude = 0
         self.number = number
@@ -23,9 +20,12 @@ class RocketBoard:
         speeds = [random.randint(1,5) for _ in range(amountOfRockets)]
         self.rockets = [Rocket(i, speeds[i]) for i in range(amountOfRockets)]
 
-        for i in range(10):
-            rocketIndexToMove = random.randint(0,4)
+        for _ in range(10):
+            rocketIndexToMove = random.randint(0,amountOfRockets-1)
             self.rockets[rocketIndexToMove].moveUp()
         
         for rocket in self.rockets:
             print(rocket)
+
+    def __getitem__(self, key):
+        return self.rockets[key]
