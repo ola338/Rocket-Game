@@ -4,38 +4,47 @@ from math import sqrt
 
 class Rocket:
 
-    def __init__(self, id, speed, altitude=0, x=0):
+    def __init__(self, id, speed, altitude=0, position=0):
         self.altitude = altitude
-        self.x = x
+        self.position = position
         self.id = id
         self.speed = speed
 
 
-    def moveUp(self):
+    def move(self):
+        '''
+        This function move rocket up and sideways according to the speed
+
+        '''
         self.altitude += self.speed
+        self.position += self.speed/2
 
 
     def __str__(self):
-        return 'Rocket ' + str(self.id) + ' have coordinates: (' + str(self.altitude) + ',' + str(self.x) + ')'
+        return 'Rocket ' + str(self.id + 1) + ' have coordinates: (' + str(self.altitude) + ',' + str(self.position) + ')'
 
 
     def get_distance(self, rocket):
+        '''
+        This function give the distance between 2 rocket
+
+        '''
         ab = rocket.altitude - self.altitude
-        bc = rocket.x - self.x
+        bc = rocket.position - self.position
         distance = sqrt(ab**2 + bc**2)
         return distance
 
 
 class RocketBoard:
 
-    def __init__(self, altitude, x, amountOfRockets = 5):
+    def __init__(self, altitude, position, amountOfRockets = 5):
         self.amountOfRockets = amountOfRockets
-        speeds = [random.randint(1,5) for _ in range(amountOfRockets)]
-        self.rockets = [Rocket(id, speeds[id], altitude, x) for id in range(amountOfRockets)]
+        self.speeds = [random.randint(1,5) for _ in range(amountOfRockets)]
+        self.rockets = [Rocket(id, self.speeds[id], altitude, position) for id in range(amountOfRockets)]
 
         for _ in range(10):
-            rocketIndexToMove = random.randint(0,amountOfRockets-1)
-            self.rockets[rocketIndexToMove].moveUp()
+            rocketIndexToMove = random.randint(0, amountOfRockets-1)
+            self.rockets[rocketIndexToMove].move()   # move random rocket
         
         for rocket in self.rockets:
             print(rocket)
@@ -46,6 +55,10 @@ class RocketBoard:
 
 
     def get_max_distance(self):
+        '''
+        This function give the maximum distance between 2 rocket
+
+        '''
         maxDistance = 0.0
         for i in range(self.amountOfRockets):
             for j in range(self.amountOfRockets):
@@ -56,6 +69,10 @@ class RocketBoard:
 
 
     def get_min_distance(self):
+        '''
+        This function give the minimum distance between 2 rocket
+
+        '''
         minDistance = self.rockets[0].get_distance(self.rockets[1])
         for i in range(self.amountOfRockets):
             for j in range(self.amountOfRockets):
@@ -68,9 +85,19 @@ class RocketBoard:
         return minDistance
 
 
+    def get_ranking(self):
+        sortedSpeeds = self.speeds
+        sortedSpeeds.sort(reverse=True)
+        sortedSpeeds = list(dict.fromkeys(sortedSpeeds))   # remove duplicates
+        ranking = {}
+        for i in range(self.amountOfRockets):
+            speedOfRocket = self.speeds[i]
+            rank = sortedSpeeds.index(speedOfRocket)
+            ranking[i+1] = rank + 1
+        return sortedSpeeds, ranking
 
-
-    #def __setitem__(self, key, value):
-     #   self.rockets[key].altitude = value
+    
+    def get_fastest_rocket(self):
+        return 
 
     
