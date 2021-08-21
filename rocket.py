@@ -21,7 +21,7 @@ class Rocket:
 
 
     def __str__(self):
-        return 'Rocket ' + str(self.id + 1) + ' have coordinates: (' + str(self.altitude) + ',' + str(self.position) + ')'
+        return 'Rocket ' + str(self.id + 1) + ' have speed: ' + str(self.speed) + ' and coordinates: (' + str(self.altitude) + ',' + str(self.position) + ')'
 
 
     def get_distance(self, rocket):
@@ -85,19 +85,50 @@ class RocketBoard:
         return minDistance
 
 
-    def get_ranking(self):
-        sortedSpeeds = self.speeds
+    def get_ranking(self, rocketId):
+        '''
+        This function give rank of 
+        '''            
+        sortedSpeeds = self.speeds.copy()
         sortedSpeeds.sort(reverse=True)
         sortedSpeeds = list(dict.fromkeys(sortedSpeeds))   # remove duplicates
-        ranking = {}
+        self.ranking = {}
         for i in range(self.amountOfRockets):
             speedOfRocket = self.speeds[i]
             rank = sortedSpeeds.index(speedOfRocket)
-            ranking[i+1] = rank + 1
-        return sortedSpeeds, ranking
+            self.ranking[i+1] = rank + 1
+        return self.ranking[rocketId], self.ranking
 
-    
+
     def get_fastest_rocket(self):
-        return 
+        '''
+        This function give list of the fastest rocket
+
+        '''        
+        keys = list(self.ranking.keys())
+        values = list(self.ranking.values())
+        theBestRank = min(values)
+        amountOfSlowestRockets = values.count(theBestRank)
+        FastestRocket = list()
+        for _ in range(amountOfSlowestRockets):
+            FastestRocket.append(keys[values.index(theBestRank)])
+            values[values.index(theBestRank)] = 0
+        return FastestRocket
+
+
+    def get_slowest_rocket(self):
+        '''
+        This function give list of the slowest rocket
+
+        '''
+        keys = list(self.ranking.keys())
+        values = list(self.ranking.values())
+        theLatestRank = max(values)
+        amountOfSlowestRockets = values.count(theLatestRank)
+        SlowestRocket = list()
+        for _ in range(amountOfSlowestRockets):
+            SlowestRocket.append(keys[values.index(theLatestRank)])
+            values[values.index(theLatestRank)] = 0
+        return SlowestRocket
 
     
