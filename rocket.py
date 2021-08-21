@@ -100,7 +100,7 @@ class RocketBoard:
         return self.ranking
 
 
-    def get_fastest_rocket(self):
+    def get_fastest_rockets(self):
         '''
         This method give list of the fastest rocket
 
@@ -116,7 +116,7 @@ class RocketBoard:
         return FastestRocket
 
 
-    def get_slowest_rocket(self):
+    def get_slowest_rockets(self):
         '''
         This method give list of the slowest rocket
 
