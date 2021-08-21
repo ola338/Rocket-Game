@@ -13,7 +13,7 @@ class Rocket:
 
     def move(self):
         '''
-        This function move rocket up and sideways according to the speed
+        This method move rocket up and sideways according to the speed
 
         '''
         self.altitude += self.speed
@@ -26,7 +26,7 @@ class Rocket:
 
     def get_distance(self, rocket):
         '''
-        This function give the distance between 2 rocket
+        This method give the distance between 2 rocket
 
         '''
         ab = rocket.altitude - self.altitude
@@ -56,7 +56,7 @@ class RocketBoard:
 
     def get_max_distance(self):
         '''
-        This function give the maximum distance between 2 rocket
+        This method give the maximum distance between 2 rocket
 
         '''
         maxDistance = 0.0
@@ -70,7 +70,7 @@ class RocketBoard:
 
     def get_min_distance(self):
         '''
-        This function give the minimum distance between 2 rocket
+        This method give the minimum distance between 2 rocket
 
         '''
         minDistance = self.rockets[0].get_distance(self.rockets[1])
@@ -85,9 +85,9 @@ class RocketBoard:
         return minDistance
 
 
-    def get_ranking(self, rocketId):
+    def get_ranking(self):
         '''
-        This function give rank of 
+        This method give rank of the selected rocket
         '''            
         sortedSpeeds = self.speeds.copy()
         sortedSpeeds.sort(reverse=True)
@@ -97,12 +97,12 @@ class RocketBoard:
             speedOfRocket = self.speeds[i]
             rank = sortedSpeeds.index(speedOfRocket)
             self.ranking[i+1] = rank + 1
-        return self.ranking[rocketId], self.ranking
+        return self.ranking
 
 
     def get_fastest_rocket(self):
         '''
-        This function give list of the fastest rocket
+        This method give list of the fastest rocket
 
         '''        
         keys = list(self.ranking.keys())
@@ -118,7 +118,7 @@ class RocketBoard:
 
     def get_slowest_rocket(self):
         '''
-        This function give list of the slowest rocket
+        This method give list of the slowest rocket
 
         '''
         keys = list(self.ranking.keys())
