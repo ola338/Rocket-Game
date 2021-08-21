@@ -33,7 +33,7 @@ class Rocket:
         bc = rocket.position - self.position
         distance = sqrt(ab**2 + bc**2)
         return distance
-
+    
 
 class RocketBoard:
 
@@ -87,7 +87,7 @@ class RocketBoard:
 
     def get_ranking(self):
         '''
-        This method give rank of the selected rocket
+        This method give ranking of rockets depending of speed
         '''            
         sortedSpeeds = self.speeds.copy()
         sortedSpeeds.sort(reverse=True)
@@ -131,4 +131,14 @@ class RocketBoard:
             values[values.index(theLatestRank)] = 0
         return SlowestRocket
 
+
     
+    def total_distance(self, altitude, position):
+        '''
+        This method give total rocket distance 
+
+        '''
+        ab = altitude - self.altitude
+        bc = position - self.position
+        totalDistance = sqrt(ab**2 + bc**2)
+        return totalDistance    
