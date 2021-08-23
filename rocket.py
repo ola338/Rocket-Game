@@ -57,6 +57,10 @@ class RocketBoard:
         return self.rockets[key]
 
 
+    def __len__(self):
+        return len(self.rockets)
+
+
     def get_max_distance(self) -> float:
         '''
         This method give the maximum distance between 2 rocket
@@ -95,12 +99,12 @@ class RocketBoard:
         sortedSpeeds = self.speeds.copy()
         sortedSpeeds.sort(reverse=True)
         sortedSpeeds = list(dict.fromkeys(sortedSpeeds))   # remove duplicates
-        self.ranking = {}
+        ranking = {}
         for i in range(self.amountOfRockets):
             speedOfRocket = self.speeds[i]
             rank = sortedSpeeds.index(speedOfRocket)
-            self.ranking[i+1] = rank + 1
-        return self.ranking
+            ranking[i+1] = rank + 1
+        return ranking
 
 
     def get_fastest_rockets(self) -> list:
@@ -108,8 +112,8 @@ class RocketBoard:
         This method give list of the fastest rocket
 
         '''        
-        keys = list(self.ranking.keys())
-        values = list(self.ranking.values())
+        keys = list(self.get_ranking().keys())
+        values = list(self.get_ranking().values())
         theBestRank = min(values)
         amountOfSlowestRockets = values.count(theBestRank)
         FastestRocket = list()
@@ -124,8 +128,8 @@ class RocketBoard:
         This method give list of the slowest rocket
 
         '''
-        keys = list(self.ranking.keys())
-        values = list(self.ranking.values())
+        keys = list(self.get_ranking().keys())
+        values = list(self.get_ranking().values())
         theLatestRank = max(values)
         amountOfSlowestRockets = values.count(theLatestRank)
         SlowestRocket = list()
@@ -139,13 +143,13 @@ class RocketBoard:
         '''
         This method give ranking of rockets depending of distance
         '''   
-        self.distances = {}
+        distances = {}
         for rocketId in range(self.amountOfRockets):
             ab = self.initAltitude - self.rockets[rocketId].altitude
             bc = self.initPosition - self.rockets[rocketId].position
             totalDistance = sqrt(ab**2 + bc**2)
-            self.distances[rocketId+1] = totalDistance
-        return self.distances
+            distances[rocketId+1] = totalDistance
+        return distances
         
 
     def get_the_weakest_rockets(self) -> list:
@@ -153,8 +157,8 @@ class RocketBoard:
         This method give list of rocket which travelled the shortest distance
 
         '''        
-        keys = list(self.distances.keys())
-        values = list(self.distances.values())
+        keys = list(self.get_distance_ranking().keys())
+        values = list(self.get_distance_ranking().values())
         minDistance = min(values)
         amountOfWeakestRockets = values.count(minDistance)
         weakestRocket = list()
@@ -169,8 +173,8 @@ class RocketBoard:
         This method give list of rocket which travelled the longest distance
 
         '''        
-        keys = list(self.distances.keys())
-        values = list(self.distances.values())
+        keys = list(self.get_distance_ranking().keys())
+        values = list(self.get_distance_ranking().values())
         maxDistance = max(values)
         amountOfWeakestRockets = values.count(maxDistance)
         bestRocket = list()
