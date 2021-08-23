@@ -1,10 +1,11 @@
+from __future__ import annotations
 import random
 from math import sqrt
 
 
 class Rocket:
 
-    def __init__(self, id, speed, altitude=0, position=0):
+    def __init__(self, id: int, speed: float, altitude: float = 0, position: float = 0):
         self.altitude = altitude
         self.position = position
         self.id = id
@@ -24,7 +25,7 @@ class Rocket:
         return 'Rocket ' + str(self.id + 1) + ' have speed: ' + str(self.speed) + ' and coordinates: (' + str(self.altitude) + ',' + str(self.position) + ')'
 
 
-    def get_distance(self, rocket):
+    def get_distance(self, rocket: Rocket) -> float:
         '''
         This method give the distance between 2 rocket
 
@@ -37,7 +38,7 @@ class Rocket:
 
 class RocketBoard:
 
-    def __init__(self, initAltitude, initPosition, amountOfRockets = 5):
+    def __init__(self, initAltitude: float, initPosition: float, amountOfRockets: int = 5):
         self.initAltitude = initAltitude
         self.initPosition = initPosition
         self.amountOfRockets = amountOfRockets
@@ -56,7 +57,7 @@ class RocketBoard:
         return self.rockets[key]
 
 
-    def get_max_distance(self):
+    def get_max_distance(self) -> float:
         '''
         This method give the maximum distance between 2 rocket
 
@@ -70,7 +71,7 @@ class RocketBoard:
         return maxDistance
 
 
-    def get_min_distance(self):
+    def get_min_distance(self) -> float:
         '''
         This method give the minimum distance between 2 rocket
 
@@ -87,7 +88,7 @@ class RocketBoard:
         return minDistance
 
 
-    def get_ranking(self):
+    def get_ranking(self) -> dict:
         '''
         This method give ranking of rockets depending of speed
         '''            
@@ -102,7 +103,7 @@ class RocketBoard:
         return self.ranking
 
 
-    def get_fastest_rockets(self):
+    def get_fastest_rockets(self) -> list:
         '''
         This method give list of the fastest rocket
 
@@ -118,7 +119,7 @@ class RocketBoard:
         return FastestRocket
 
 
-    def get_slowest_rockets(self):
+    def get_slowest_rockets(self) -> list:
         '''
         This method give list of the slowest rocket
 
@@ -134,7 +135,7 @@ class RocketBoard:
         return SlowestRocket
 
 
-    def get_distance_ranking(self):
+    def get_distance_ranking(self) -> dict:
         '''
         This method give ranking of rockets depending of distance
         '''   
@@ -147,7 +148,7 @@ class RocketBoard:
         return self.distances
         
 
-    def get_the_weakest_rockets(self):
+    def get_the_weakest_rockets(self) -> list:
         '''
         This method give list of rocket which travelled the shortest distance
 
@@ -163,7 +164,7 @@ class RocketBoard:
         return weakestRocket
 
 
-    def get_the_best_rockets(self):
+    def get_the_best_rockets(self) -> list:
         '''
         This method give list of rocket which travelled the longest distance
 
