@@ -134,28 +134,46 @@ class RocketBoard:
         return SlowestRocket
 
 
-    
-    def total_distance(self, rocketId):
-        '''
-        This method give total rocket distance 
-
-        '''
-        ab = self.initAltitude - self.rockets[rocketId].altitude
-        bc = self.initPosition - self.rockets[rocketId].position
-        totalDistance = sqrt(ab**2 + bc**2)
-        return totalDistance    
-
-
     def get_distance_ranking(self):
         '''
         This method give ranking of rockets depending of distance
         '''   
-        distances = {}
+        self.distances = {}
         for rocketId in range(self.amountOfRockets):
             ab = self.initAltitude - self.rockets[rocketId].altitude
             bc = self.initPosition - self.rockets[rocketId].position
             totalDistance = sqrt(ab**2 + bc**2)
-            distances[rocketId+1] = totalDistance
-        return distances
+            self.distances[rocketId+1] = totalDistance
+        return self.distances
         
 
+    def get_the_weakest_rockets(self):
+        '''
+        This method give list of rocket which travelled the shortest distance
+
+        '''        
+        keys = list(self.distances.keys())
+        values = list(self.distances.values())
+        minDistance = min(values)
+        amountOfWeakestRockets = values.count(minDistance)
+        weakestRocket = list()
+        for _ in range(amountOfWeakestRockets):
+            weakestRocket.append(keys[values.index(minDistance)])
+            values[values.index(minDistance)] = -1
+        return weakestRocket
+
+
+    def get_the_best_rockets(self):
+        '''
+        This method give list of rocket which travelled the longest distance
+
+        '''        
+        keys = list(self.distances.keys())
+        values = list(self.distances.values())
+        maxDistance = max(values)
+        amountOfWeakestRockets = values.count(maxDistance)
+        bestRocket = list()
+        for _ in range(amountOfWeakestRockets):
+            bestRocket.append(keys[values.index(maxDistance)])
+            values[values.index(maxDistance)] = -1
+        return bestRocket
