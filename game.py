@@ -13,7 +13,7 @@ FastestRocket = int(input("Guess which rocket is the fastest: "))
 SlowestRocket = int(input("Guess which rocket is the slowest: "))
 
 board = RocketBoard(altitude, position, amountOfRockets)
-print(f'Ranking of the rockets: \n {board.get_ranking()}')
+print(f'Ranking of the rockets depending of speed: \n {board.get_ranking()}')
 print(f'Distance between rockets {distance1} and {distance2} is {board[distance1-1].get_distance(board[distance2-1])}')
 
 score = 0
@@ -59,3 +59,4 @@ if score > 0:
 else:
     print('You lose :(')
 
+print(board.get_distance_ranking())

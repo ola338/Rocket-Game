@@ -37,10 +37,12 @@ class Rocket:
 
 class RocketBoard:
 
-    def __init__(self, altitude, position, amountOfRockets = 5):
+    def __init__(self, initAltitude, initPosition, amountOfRockets = 5):
+        self.initAltitude = initAltitude
+        self.initPosition = initPosition
         self.amountOfRockets = amountOfRockets
         self.speeds = [random.randint(1,5) for _ in range(amountOfRockets)]
-        self.rockets = [Rocket(id, self.speeds[id], altitude, position) for id in range(amountOfRockets)]
+        self.rockets = [Rocket(id, self.speeds[id], initAltitude, initPosition) for id in range(amountOfRockets)]
 
         for _ in range(10):
             rocketIndexToMove = random.randint(0, amountOfRockets-1)
@@ -133,12 +135,27 @@ class RocketBoard:
 
 
     
-    def total_distance(self, altitude, position):
+    def total_distance(self, rocketId):
         '''
         This method give total rocket distance 
 
         '''
-        ab = altitude - self.altitude
-        bc = position - self.position
+        ab = self.initAltitude - self.rockets[rocketId].altitude
+        bc = self.initPosition - self.rockets[rocketId].position
         totalDistance = sqrt(ab**2 + bc**2)
         return totalDistance    
+
+
+    def get_distance_ranking(self):
+        '''
+        This method give ranking of rockets depending of distance
+        '''   
+        distances = {}
+        for rocketId in range(self.amountOfRockets):
+            ab = self.initAltitude - self.rockets[rocketId].altitude
+            bc = self.initPosition - self.rockets[rocketId].position
+            totalDistance = sqrt(ab**2 + bc**2)
+            distances[rocketId+1] = totalDistance
+        return distances
+        
+
