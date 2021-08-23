@@ -11,10 +11,13 @@ minDistance1 = int(input("Guess which rockets are closest to each other: "))
 minDistance2 = int(input())
 FastestRocket = int(input("Guess which rocket is the fastest: "))
 SlowestRocket = int(input("Guess which rocket is the slowest: "))
+BestRocket = int(input("Guess which rocket travelled the longest distance: "))
+WeakestRocket = int(input("Guess which rocket travelled the shortest distance: "))
 
 board = RocketBoard(altitude, position, amountOfRockets)
 print(f'Ranking of the rockets depending of speed: \n {board.get_ranking()}')
 print(f'Distance between rockets {distance1} and {distance2} is {board[distance1-1].get_distance(board[distance2-1])}')
+print(f'Ranking of the rockets depending of distance: \n {board.get_distance_ranking()}')
 
 score = 0
 
@@ -54,9 +57,29 @@ else:
     print(f'Unfortunately rocket {SlowestRocket} is not the slowest')
 
 
+statusB = 0
+for i in range(len(board.get_the_best_rockets())):
+    if board.get_the_best_rockets()[i] == BestRocket:
+        statusB += 1
+if statusB > 0:
+    print(f'Congratulation, rocket {BestRocket} travelled the longest distance')
+    score += 1
+else:
+    print(f'Unfortunately rocket {BestRocket} did not travel the longest distance')
+
+
+statusW = 0
+for i in range(len(board.get_the_weakest_rockets())):
+    if board.get_the_weakest_rockets()[i] == WeakestRocket:
+        statusW += 1
+if statusW > 0:
+    print(f'Congratulation, rocket {WeakestRocket} travelled the shortest distance')
+    score += 1
+else:
+    print(f'Unfortunately rocket {WeakestRocket} travelled the shortest distance')
+
+
 if score > 0:
     print(f'You win and score {score}!')
 else:
     print('You lose :(')
-
-print(board.get_distance_ranking())
