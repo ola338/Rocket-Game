@@ -4,13 +4,15 @@ from math import sqrt
 
 
 class Rocket:
+    
+    id = 0
 
-    def __init__(self, id: int, speed: float, altitude: float = 0, position: float = 0):
+    def __init__(self, speed: float, altitude: float = 0, position: float = 0):
         self.altitude = altitude
         self.position = position
-        self.id = id
         self.speed = speed
-
+        self.id = Rocket.id
+        Rocket.id += 1
 
     def move(self):
         '''
@@ -43,7 +45,7 @@ class RocketBoard:
         self.initPosition = initPosition
         self.amountOfRockets = amountOfRockets
         self.speeds = [random.randint(1,5) for _ in range(amountOfRockets)]
-        self.rockets = [Rocket(id, self.speeds[id], initAltitude, initPosition) for id in range(amountOfRockets)]
+        self.rockets = [Rocket(self.speeds[id], initAltitude, initPosition) for id in range(amountOfRockets)]
 
         for _ in range(10):
             rocketIndexToMove = random.randint(0, amountOfRockets-1)
